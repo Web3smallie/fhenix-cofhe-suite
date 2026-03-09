@@ -10,8 +10,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const { targetNetworks } = scaffoldConfig;
 
 // Define the multicall3 address for hardhat chain
-const HARDHAT_MULTICALL3_ADDRESS = (deployedContracts as GenericContractsDeclaration)["31337"].Multicall3.address;
-
+const HARDHAT_MULTICALL3_ADDRESS = "0xcA11bde05977b3631167028862bE2a173976CA11";
 // We always want to have mainnet enabled (ENS resolution, ETH price, etc). But only once.
 export const enabledChains = targetNetworks.find((network: Chain) => network.id === 1)
   ? targetNetworks

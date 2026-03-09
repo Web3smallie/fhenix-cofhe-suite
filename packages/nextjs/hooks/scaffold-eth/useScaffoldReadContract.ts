@@ -40,6 +40,7 @@ export const useScaffoldReadContract = <
   const { query: queryOptions, watch, ...readContractConfig } = readConfig;
   // set watch to true by default
   const defaultWatch = watch ?? true;
+ // @ts-ignore
   const readContractHookRes: Omit<ReturnType<typeof useReadContract>, "data" | "refetch"> & {
     data: AbiFunctionReturnType<ContractAbi, TFunctionName> | undefined;
     refetch: (
