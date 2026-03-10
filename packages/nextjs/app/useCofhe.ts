@@ -21,9 +21,6 @@ import { notification } from "~~/utils/scaffold-eth";
 const config = createCofhesdkConfig({
   // mirrors scaffoldConfig.targetNetworks
   supportedChains: [hardhat, sepolia, arbSepolia],
-  mocks: {
-    sealOutputDelay: 1000,
-  },
 });
 export const cofhesdkClient = createCofhesdkClient(config);
 
