@@ -22,8 +22,9 @@ export const PrivatePerpDEXComponent = () => {
   const { onEncryptInput, isEncryptingInput, inputEncryptionDisabled } = useEncryptInput();
 
   const { isPending, writeContractAsync } = useScaffoldWriteContract({
-    contractName: "PrivatePerpDEX",
-  });
+  contractName: "PrivatePerpDEX",
+  disableSimulate: true,
+});
 
   const { data: traderPositions } = useScaffoldReadContract({
     contractName: "PrivatePerpDEX",

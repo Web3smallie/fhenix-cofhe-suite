@@ -18,12 +18,14 @@ export const PrivateVotingComponent = () => {
   const { onEncryptInput, isEncryptingInput, inputEncryptionDisabled } = useEncryptInput();
 
   const { isPending: isCreating, writeContractAsync: createAsync } = useScaffoldWriteContract({
-    contractName: "PrivateVoting",
-  });
+  contractName: "PrivateVoting",
+  disableSimulate: true,
+});
 
-  const { isPending: isVoting, writeContractAsync: voteAsync } = useScaffoldWriteContract({
-    contractName: "PrivateVoting",
-  });
+const { isPending: isVoting, writeContractAsync: voteAsync } = useScaffoldWriteContract({
+  contractName: "PrivateVoting",
+  disableSimulate: true,
+});
 
   const { data: proposalCount } = useScaffoldReadContract({
     contractName: "PrivateVoting",

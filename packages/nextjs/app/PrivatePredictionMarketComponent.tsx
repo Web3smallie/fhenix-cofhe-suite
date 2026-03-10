@@ -19,12 +19,14 @@ export const PrivatePredictionMarketComponent = () => {
   const { onEncryptInput, isEncryptingInput, inputEncryptionDisabled } = useEncryptInput();
 
   const { isPending: isBetting, writeContractAsync: betAsync } = useScaffoldWriteContract({
-    contractName: "PrivatePredictionMarket",
-  });
+  contractName: "PrivatePredictionMarket",
+  disableSimulate: true,
+});
 
-  const { isPending: isCreating, writeContractAsync: createAsync } = useScaffoldWriteContract({
-    contractName: "PrivatePredictionMarket",
-  });
+const { isPending: isCreating, writeContractAsync: createAsync } = useScaffoldWriteContract({
+  contractName: "PrivatePredictionMarket",
+  disableSimulate: true,
+});
 
   const { data: marketCount } = useScaffoldReadContract({
     contractName: "PrivatePredictionMarket",

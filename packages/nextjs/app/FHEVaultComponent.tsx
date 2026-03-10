@@ -14,12 +14,14 @@ export const FHEVaultComponent = () => {
   const { onEncryptInput, isEncryptingInput, inputEncryptionDisabled } = useEncryptInput();
 
   const { isPending: isDepositing, writeContractAsync: depositAsync } = useScaffoldWriteContract({
-    contractName: "FHEVault",
-  });
+  contractName: "FHEVault",
+  disableSimulate: true,
+});
 
-  const { isPending: isWithdrawing, writeContractAsync: withdrawAsync } = useScaffoldWriteContract({
-    contractName: "FHEVault",
-  });
+const { isPending: isWithdrawing, writeContractAsync: withdrawAsync } = useScaffoldWriteContract({
+  contractName: "FHEVault",
+  disableSimulate: true,
+});
 
   const { data: vaultBalance } = useScaffoldReadContract({
     contractName: "FHEVault",
