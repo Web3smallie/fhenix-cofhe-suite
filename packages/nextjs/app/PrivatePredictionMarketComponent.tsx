@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FheTypes } from "@cofhe/sdk";
+import { FheTypes } from "cofhejs/web";
 import { useEncryptInput } from "./useEncryptInput";
 import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { parseEther } from "viem";
@@ -19,14 +19,14 @@ export const PrivatePredictionMarketComponent = () => {
   const { onEncryptInput, isEncryptingInput, inputEncryptionDisabled } = useEncryptInput();
 
   const { isPending: isBetting, writeContractAsync: betAsync } = useScaffoldWriteContract({
-  contractName: "PrivatePredictionMarket",
-  disableSimulate: true,
-});
+    contractName: "PrivatePredictionMarket",
+    disableSimulate: true,
+  });
 
-const { isPending: isCreating, writeContractAsync: createAsync } = useScaffoldWriteContract({
-  contractName: "PrivatePredictionMarket",
-  disableSimulate: true,
-});
+  const { isPending: isCreating, writeContractAsync: createAsync } = useScaffoldWriteContract({
+    contractName: "PrivatePredictionMarket",
+    disableSimulate: true,
+  });
 
   const { data: marketCount } = useScaffoldReadContract({
     contractName: "PrivatePredictionMarket",
@@ -72,7 +72,6 @@ const { isPending: isCreating, writeContractAsync: createAsync } = useScaffoldWr
         <span>🔐 Your bet side and amount are FHE-encrypted. Nobody knows if you bet YES or NO.</span>
       </div>
 
-      {/* Stats */}
       <div className="stats shadow w-full">
         <div className="stat">
           <div className="stat-title">Active Markets</div>
@@ -84,7 +83,6 @@ const { isPending: isCreating, writeContractAsync: createAsync } = useScaffoldWr
         </div>
       </div>
 
-      {/* Markets */}
       <div className="card bg-base-200 shadow">
         <div className="card-body">
           <h2 className="card-title">🎯 Prediction Markets</h2>
@@ -126,7 +124,6 @@ const { isPending: isCreating, writeContractAsync: createAsync } = useScaffoldWr
         </div>
       </div>
 
-      {/* Create Market */}
       <div className="card bg-base-200 shadow">
         <div className="card-body">
           <h2 className="card-title">➕ Create Market</h2>

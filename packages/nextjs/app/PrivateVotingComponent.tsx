@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { FheTypes } from "@cofhe/sdk";
+import { FheTypes } from "cofhejs/web";
 import { useEncryptInput } from "./useEncryptInput";
 import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
-import { useAccount } from "wagmi";
 
 const DEFAULT_PROPOSALS = [
   { id: 0, description: "Should we increase protocol fees to 0.3%?", endTime: Date.now() / 1000 + 86400 },
@@ -18,14 +17,14 @@ export const PrivateVotingComponent = () => {
   const { onEncryptInput, isEncryptingInput, inputEncryptionDisabled } = useEncryptInput();
 
   const { isPending: isCreating, writeContractAsync: createAsync } = useScaffoldWriteContract({
-  contractName: "PrivateVoting",
-  disableSimulate: true,
-});
+    contractName: "PrivateVoting",
+    disableSimulate: true,
+  });
 
-const { isPending: isVoting, writeContractAsync: voteAsync } = useScaffoldWriteContract({
-  contractName: "PrivateVoting",
-  disableSimulate: true,
-});
+  const { isPending: isVoting, writeContractAsync: voteAsync } = useScaffoldWriteContract({
+    contractName: "PrivateVoting",
+    disableSimulate: true,
+  });
 
   const { data: proposalCount } = useScaffoldReadContract({
     contractName: "PrivateVoting",
@@ -58,7 +57,6 @@ const { isPending: isVoting, writeContractAsync: voteAsync } = useScaffoldWriteC
         <span>🔐 Votes are FHE-encrypted. Results are computed without revealing individual votes.</span>
       </div>
 
-      {/* Stats */}
       <div className="stats shadow w-full">
         <div className="stat">
           <div className="stat-title">Active Proposals</div>
@@ -70,7 +68,6 @@ const { isPending: isVoting, writeContractAsync: voteAsync } = useScaffoldWriteC
         </div>
       </div>
 
-      {/* Proposals */}
       <div className="card bg-base-200 shadow">
         <div className="card-body">
           <h2 className="card-title">🗳️ Active Proposals</h2>
@@ -108,7 +105,6 @@ const { isPending: isVoting, writeContractAsync: voteAsync } = useScaffoldWriteC
         </div>
       </div>
 
-      {/* Create Proposal */}
       <div className="card bg-base-200 shadow">
         <div className="card-body">
           <h2 className="card-title">➕ Create Proposal</h2>

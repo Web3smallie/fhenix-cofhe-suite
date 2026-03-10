@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FheTypes } from "@cofhe/sdk";
+import { FheTypes } from "cofhejs/web";
 import { useEncryptInput } from "./useEncryptInput";
 import { useScaffoldWriteContract, useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 import { useAccount } from "wagmi";
@@ -56,7 +56,6 @@ export const PrivatePerpDEXComponent = () => {
         <span>🔐 Position size and entry price are FHE-encrypted. Nobody can see your trade details.</span>
       </div>
 
-      {/* Asset Selector */}
       <div className="card bg-base-200 shadow">
         <div className="card-body">
           <h2 className="card-title">📈 Open Encrypted Position</h2>
@@ -75,7 +74,6 @@ export const PrivatePerpDEXComponent = () => {
 
           <div className="text-2xl font-bold mt-2">${selectedAsset.price.toLocaleString()}</div>
 
-          {/* Long/Short */}
           <div className="flex gap-2 mt-2">
             <button
               onClick={() => setSide("LONG")}
@@ -91,7 +89,6 @@ export const PrivatePerpDEXComponent = () => {
             </button>
           </div>
 
-          {/* Leverage */}
           <div className="mt-2">
             <div className="flex justify-between text-sm mb-1">
               <span>Leverage</span>
@@ -109,7 +106,6 @@ export const PrivatePerpDEXComponent = () => {
             />
           </div>
 
-          {/* Size */}
           <div className="mt-2">
             <label className="label"><span className="label-text">Size (ETH)</span></label>
             <input
@@ -137,7 +133,6 @@ export const PrivatePerpDEXComponent = () => {
         </div>
       </div>
 
-      {/* Positions */}
       <div className="card bg-base-200 shadow">
         <div className="card-body">
           <h2 className="card-title">📋 Your Positions</h2>

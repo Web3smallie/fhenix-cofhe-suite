@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FheTypes } from "@cofhe/sdk";
+import { FheTypes } from "cofhejs/web";
 import { useEncryptInput } from "./useEncryptInput";
 import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { useAccount } from "wagmi";
