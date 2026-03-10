@@ -159,6 +159,7 @@ contract PrivateVoting {
     }
 
     function createProposal(string memory description, uint256 durationSeconds) external {
+        require(durationSeconds > 0, "Invalid duration");
         proposals[proposalCount] = Proposal({
             description: description,
             deadline:    block.timestamp + durationSeconds,
@@ -243,6 +244,7 @@ contract PrivatePredictionMarket {
     }
 
     function createMarket(string memory question, uint256 durationSeconds) external {
+        require(durationSeconds > 0, "Invalid duration");
         markets[marketCount] = Market({
             question:  question,
             deadline:  block.timestamp + durationSeconds,

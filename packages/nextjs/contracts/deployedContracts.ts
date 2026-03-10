@@ -107,7 +107,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     FHEVault: {
-      address: "0xb77Da9Ab9eE87E5F8447b15306492ec7161e1Ac4",
+      address: "0x35EE74d7C90F35E4252683df2f838094Da2DCebe",
       abi: [
         {
           inputs: [],
@@ -325,7 +325,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     PrivatePerpDEX: {
-      address: "0x2011ce9E1d76CDF071a9552B211290ab54a34d4E",
+      address: "0xD5C56B2C15F7FbeF6c84fb84796640bd4720A5c4",
       abi: [
         {
           inputs: [
@@ -618,7 +618,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     PrivatePredictionMarket: {
-      address: "0x2FE37a41Ba58AF71AB9e1f2025e0ebD562B66D32",
+      address: "0x50860f7467F7Ea25ce25cCA14052C62c3EdDb6Ea",
       abi: [
         {
           inputs: [],
@@ -1038,7 +1038,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     PrivateVoting: {
-      address: "0x3c8986DD2165FA9Fc4341cd04Ab5e6E24572537A",
+      address: "0x81BCfE6a66bd7044DD68e954309997225d4a998F",
       abi: [
         {
           inputs: [],
