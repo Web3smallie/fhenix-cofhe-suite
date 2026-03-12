@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
-import { useCofheCreatePermit, useCofheModalStore } from "~~/app/useCofhe";
+import { useCofheCreatePermit, useCofheModalStore } from "~~/hooks/useCofhe";
 
 type ExpirationOption = "1 day" | "1 week" | "1 month";
 

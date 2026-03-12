@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
-import { useCofheActivePermit, useCofheConnected, useCofheCreatePermit, useCofheStatus } from "~~/app/useCofhe";
+import { useCofheActivePermit, useCofheConnected, useCofheCreatePermit, useCofheStatus } from "~~/hooks/useCofhe";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 import scaffoldConfig from "~~/scaffold.config";
 

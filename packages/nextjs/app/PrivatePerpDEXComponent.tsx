@@ -371,7 +371,7 @@ export default function PrivatePerpDEXComponent() {
       const collateral = parseEther((parseFloat(sizeInput) * 0.001).toFixed(6));
       await openPositionTx({
         functionName: "openPosition",
-        args: [side === "LONG", leverage, encSize, encEntry],
+        args: [side === "LONG", leverage, encSize as any, encEntry as any],
         value: collateral,
       });
       const posId = positions.length;

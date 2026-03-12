@@ -246,7 +246,7 @@ export default function PrivateVotingComponent() {
       if (!encVote) throw new Error("Vote encryption failed");
       addLog("✓ Vote encrypted 🔐", "ok");
       addLog("▶ Broadcasting tx → PrivateVoting…", "sys");
-      await voteAsync({ functionName: "castVote", args: [BigInt(proposalId), encVote] });
+      await voteAsync({ functionName: "castVote", args: [BigInt(proposalId), encVote as any] });
       addLog(`✓ Vote cast — completely private 🔐`, "ok");
       setProposals(prev => prev.map(p => p.id === proposalId ? { ...p, totalVotes: p.totalVotes + 1 } : p));
     } catch (err: any) {

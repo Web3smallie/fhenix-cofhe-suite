@@ -58,7 +58,6 @@ export function useConnectCofheClient() {
         if (result.success) {
           setConnected(true);
           notification.success("CoFHE connected");
-          // Check if permit exists
           const permit = cofhejs.getPermit();
           setPermitActive(!!permit);
         } else {
@@ -102,9 +101,10 @@ export const useCofheStatus = () => {
 
 export const useCofheCreatePermit = () => {
   const setPermitActive = useCofheStore(s => s.setPermitActive);
+  const { address } = useAccount();
   return useCallback(async () => {
     try {
-      const result = await cofhejs.createPermit({ type: "self" });
+      const result = await cofhejs.createPermit({ type: "self", issuer: address as string } as any);
       if (result.success) {
         setPermitActive(true);
         notification.success("Permit created!");
@@ -115,7 +115,7 @@ export const useCofheCreatePermit = () => {
     } catch (err: any) {
       notification.error(`Permit error: ${err.message}`);
     }
-  }, [setPermitActive]);
+  }, [setPermitActive, address]);
 };
 
 export const useCofheIsActivePermitValid = () => {

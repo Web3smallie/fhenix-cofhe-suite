@@ -286,7 +286,7 @@ export default function PrivatePredictionMarketComponent() {
       addLog("▶ Broadcasting tx → PrivatePredictionMarket…", "sys");
       await betAsync({
         functionName: "placeBet",
-        args: [BigInt(selectedMarket.id), encSide, encAmount],
+        args: [BigInt(selectedMarket.id), encSide as any, encAmount as any],
         value: parseEther(amount),
       });
       addLog(`✓ Bet placed — side & amount hidden on-chain 🔐`, "ok");
