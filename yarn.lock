@@ -3633,7 +3633,6 @@ __metadata:
     bgipfs: ~0.0.12
     blo: ~1.2.0
     burner-connector: 0.0.14
-    cofhejs: ^0.3.1
     daisyui: 5.0.9
     eslint: ~9.23.0
     eslint-config-next: ~15.2.4
@@ -4383,15 +4382,6 @@ __metadata:
   dependencies:
     undici-types: ~6.19.2
   checksum: 1a8bbb504efaffcef7b8491074a428e5c0b5425b0c0ffb13e7262cb8462c275e8cc5eaf90a38d8fbf52a1eeda7c01ab3b940673c43fc2414140779c973e40ec6
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^20.0.0":
-  version: 20.19.37
-  resolution: "@types/node@npm:20.19.37"
-  dependencies:
-    undici-types: ~6.21.0
-  checksum: b20eed0820bfcd7a3140aa833a4306dc29307cbd3606d3487a168822c17725adbc21ce45bb26e52371a8f7c2a4a3734c6e10086b0e3fccc595a4585572a40c62
   languageName: node
   linkType: hard
 
@@ -7101,24 +7091,6 @@ __metadata:
   version: 10.1.1
   resolution: "code-block-writer@npm:10.1.1"
   checksum: e048037acbcbda19fca62a3a63e4a64226ea6b5dc0fad7632d34a88c1165b29a357e5e19f0497811e9911472e824ab85f68176f40e439da87e051908956eb47c
-  languageName: node
-  linkType: hard
-
-"cofhejs@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "cofhejs@npm:0.3.1"
-  dependencies:
-    "@types/node": ^20.0.0
-    idb-keyval: ^6.2.1
-    immer: ^10.1.1
-    node-tfhe: 0.11.1
-    tfhe: 0.11.1
-    tweetnacl: ^1.0.3
-    tweetnacl-util: ^0.15.1
-    type-fest: ^4.26.1
-    zod: ^3.23.8
-    zustand: ^5.0.1
-  checksum: 6c2d9617281a6deef6a668c92058b143909202cd1d5ab16c6537fbb3882219764f897a0d5d77eef321c0f5740ea6c13236938497ce7b8d3c4b9699c0d66d2e1d
   languageName: node
   linkType: hard
 
@@ -17819,7 +17791,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.22.0, zod@npm:^3.23.8":
+"zod@npm:^3.22.0":
   version: 3.25.76
   resolution: "zod@npm:3.25.76"
   checksum: c9a403a62b329188a5f6bd24d5d935d2bba345f7ab8151d1baa1505b5da9f227fb139354b043711490c798e91f3df75991395e40142e6510a4b16409f302b849

@@ -12,16 +12,6 @@ const nextConfig: NextConfig = {
   webpack: config => {
     config.resolve.fallback = { fs: false, net: false, tls: false };
     config.externals.push("pino-pretty", "lokijs", "encoding");
-    // Enable WebAssembly support for cofhejs
-    config.experiments = {
-      ...config.experiments,
-      asyncWebAssembly: true,
-      layers: true,
-    };
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      "~~": require("path").resolve(__dirname, "./"),
-    };
     return config;
   },
 };

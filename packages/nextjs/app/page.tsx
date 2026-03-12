@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { Address } from "~~/components/scaffold-eth";
-import { useConnectCofheClient, useCofheActivePermit, useCofheConnected, useCofheModalStore } from "~~/hooks/useCofhe";
+import { useConnectCofheClient, useCofheActivePermit, useCofheConnected, useCofheModalStore } from "./useCofhe";
 import { FHEVaultComponent } from "./FHEVaultComponent";
 import { PrivatePerpDEXComponent } from "./PrivatePerpDEXComponent";
 import { PrivateVotingComponent } from "./PrivateVotingComponent";
