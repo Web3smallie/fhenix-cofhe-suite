@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
       asyncWebAssembly: true,
       layers: true,
     };
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "~~": require("path").resolve(__dirname, "./"),
+    };
     return config;
   },
 };
