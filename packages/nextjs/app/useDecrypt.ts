@@ -1,62 +1,27 @@
+"use client";
+
 import { useCallback, useEffect, useState } from "react";
-import { cofhesdkClient, useCofheAccount, useCofheConnected } from "./useCofhe";
-import { FheTypes, UnsealedItem } from "@cofhe/sdk";
+import { cofhejs, FheTypes } from "cofhejs/web";
 import { zeroAddress } from "viem";
-import {
-  encryptedValueToString,
-  logBlockMessage,
-  logBlockMessageAndEnd,
-  logBlockStart,
-  plaintextToString,
-} from "~~/utils/cofhe/logging";
+import { useCofheConnected } from "./useCofhe";
+import { useAccount } from "wagmi";
+
+export type UnsealedItem<T extends FheTypes> = T extends FheTypes.Bool
+  ? boolean
+  : T extends FheTypes.Uint160
+    ? string
+    : bigint;
 
 export type DecryptionResult<T extends FheTypes> =
-  | {
-      fheType: T;
-      ctHash: null;
-      value: null;
-      error: null;
-      state: "no-data";
-    }
-  | {
-      fheType: T;
-      ctHash: bigint;
-      value: null;
-      error: null;
-      state: "encrypted";
-    }
-  | {
-      fheType: T;
-      ctHash: bigint;
-      value: null;
-      error: null;
-      state: "pending";
-    }
-  | {
-      fheType: T;
-      ctHash: bigint;
-      value: UnsealedItem<T>;
-      error: null;
-      state: "success";
-    }
-  | {
-      fheType: T;
-      ctHash: bigint;
-      value: null;
-      error: string;
-      state: "error";
-    };
+  | { fheType: T; ctHash: null; value: null; error: null; state: "no-data" }
+  | { fheType: T; ctHash: bigint; value: null; error: null; state: "encrypted" }
+  | { fheType: T; ctHash: bigint; value: null; error: null; state: "pending" }
+  | { fheType: T; ctHash: bigint; value: UnsealedItem<T>; error: null; state: "success" }
+  | { fheType: T; ctHash: bigint; value: null; error: string; state: "error" };
 
-const _decryptValue = async <T extends FheTypes>(fheType: T, value: bigint): Promise<DecryptionResult<T>> => {
-  logBlockStart("useDecrypt - _decryptValue");
-  logBlockMessage(`DECRYPTING VALUE | ${encryptedValueToString(fheType, value)}`);
-
-  if (value === 0n) {
+const _decryptValue = async <T extends FheTypes>(fheType: T, ctHash: bigint): Promise<DecryptionResult<T>> => {
+  if (ctHash === 0n) {
     const zeroValue = fheType === FheTypes.Bool ? false : fheType === FheTypes.Uint160 ? zeroAddress : 0n;
-    logBlockMessageAndEnd(
-      `SUCCESS          | ${encryptedValueToString(fheType, value)} => ${plaintextToString(fheType, zeroValue)}`,
-    );
-
     return {
       fheType,
       ctHash: 0n,
@@ -66,28 +31,36 @@ const _decryptValue = async <T extends FheTypes>(fheType: T, value: bigint): Pro
     } as DecryptionResult<T>;
   }
 
-  const result = await cofhesdkClient.decryptHandle(value, fheType).decrypt();
-  if (result.success) {
-    logBlockMessageAndEnd(
-      `SUCCESS          | ${encryptedValueToString(fheType, value)} => ${plaintextToString(fheType, result.data)}`,
-    );
+  try {
+    const permit = cofhejs.getPermit();
+    if (!permit) throw new Error("No active permit");
+
+    const result = await cofhejs.unseal(ctHash, fheType);
+    if (result.success) {
+      return {
+        fheType,
+        ctHash,
+        value: result.data as UnsealedItem<T>,
+        error: null,
+        state: "success",
+      } as DecryptionResult<T>;
+    }
     return {
       fheType,
-      ctHash: value,
-      value: result.data,
-      error: null,
-      state: "success",
+      ctHash,
+      value: null,
+      error: String(result.error),
+      state: "error",
+    } as DecryptionResult<T>;
+  } catch (err: any) {
+    return {
+      fheType,
+      ctHash,
+      value: null,
+      error: err.message ?? "Unknown error",
+      state: "error",
     } as DecryptionResult<T>;
   }
-
-  logBlockMessageAndEnd(`FAILED           | ${result.error.message}`);
-  return {
-    fheType,
-    ctHash: value,
-    value: null,
-    error: result.error.message,
-    state: "error",
-  } as DecryptionResult<T>;
 };
 
 const initialDecryptionResult = <T extends FheTypes>(
@@ -95,15 +68,8 @@ const initialDecryptionResult = <T extends FheTypes>(
   ctHash: bigint | null | undefined,
 ): DecryptionResult<T> => {
   if (ctHash == null) {
-    return {
-      fheType,
-      ctHash: null,
-      value: null,
-      error: null,
-      state: "no-data",
-    };
+    return { fheType, ctHash: null, value: null, error: null, state: "no-data" };
   }
-
   if (ctHash === 0n) {
     return {
       fheType,
@@ -113,67 +79,40 @@ const initialDecryptionResult = <T extends FheTypes>(
       state: "success",
     };
   }
-
-  return {
-    fheType,
-    ctHash,
-    value: null,
-    error: null,
-    state: "encrypted",
-  };
+  return { fheType, ctHash, value: null, error: null, state: "encrypted" };
 };
 
-/**
- * Hook to decrypt a value using cofhe sdk
- * @param fheType - The type of the value to decrypt
- * @param ctHash - The hash of the encrypted value
- * @returns Object containing a function to decrypt the value and the result of the decryption
- */
 export const useDecryptValue = <T extends FheTypes>(
   fheType: T,
   ctHash: bigint | null | undefined,
 ): { onDecrypt: () => Promise<void>; result: DecryptionResult<T> } => {
-  const cofheAccount = useCofheAccount();
+  const { address } = useAccount();
   const cofheConnected = useCofheConnected();
   const [result, setResult] = useState<DecryptionResult<T>>(initialDecryptionResult(fheType, ctHash));
 
-  // Reset when ctHash changes
   useEffect(() => {
     setResult(initialDecryptionResult(fheType, ctHash));
   }, [fheType, ctHash]);
 
   const onDecrypt = useCallback(async () => {
     if (ctHash == null) {
-      setResult({
-        fheType,
-        ctHash: null,
-        value: null,
-        error: null,
-        state: "no-data",
-      });
+      setResult({ fheType, ctHash: null, value: null, error: null, state: "no-data" });
       return;
     }
-    if (!cofheConnected || cofheAccount == null) {
+    if (!cofheConnected || !address) {
       setResult({
         fheType,
         ctHash,
         value: null,
-        error: !cofheConnected ? "Cofhe not connected" : "No account connected",
+        error: !cofheConnected ? "CoFHE not connected" : "No account connected",
         state: "error",
       });
       return;
     }
-
-    setResult({
-      fheType,
-      ctHash,
-      value: null,
-      error: null,
-      state: "pending",
-    });
+    setResult({ fheType, ctHash, value: null, error: null, state: "pending" });
     try {
-      const result = await _decryptValue(fheType, ctHash);
-      setResult(result);
+      const res = await _decryptValue(fheType, ctHash);
+      setResult(res);
     } catch (error) {
       setResult({
         fheType,
@@ -183,10 +122,7 @@ export const useDecryptValue = <T extends FheTypes>(
         state: "error",
       });
     }
-  }, [fheType, ctHash, cofheAccount, cofheConnected]);
+  }, [fheType, ctHash, address, cofheConnected]);
 
-  return {
-    onDecrypt,
-    result,
-  };
+  return { onDecrypt, result };
 };
