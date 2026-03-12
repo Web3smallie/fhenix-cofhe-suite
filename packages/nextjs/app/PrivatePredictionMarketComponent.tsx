@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { FheTypes } from "cofhejs/web";
-import { useEncryptInput } from "~~/hooks/useEncryptInput";
-import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
+import { useEncryptInput } from "../hooks/useEncryptInput";
+import { useScaffoldReadContract, useScaffoldWriteContract } from "../hooks/scaffold-eth";
 import { useAccount } from "wagmi";
 import { parseEther } from "viem";
-import { useCofheConnected } from "~~/hooks/useCofhe";
+import { useCofheConnected } from "../hooks/useCofhe";
 import { notification } from "~~/utils/scaffold-eth";
 
 // ─── Owner wallet — only this address sees "Create Market" ───────────────────

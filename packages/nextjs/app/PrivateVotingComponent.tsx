@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { FheTypes } from "cofhejs/web";
-import { useEncryptInput } from "~~/hooks/useEncryptInput";
-import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
+import { useEncryptInput } from "../hooks/useEncryptInput";
+import { useScaffoldReadContract, useScaffoldWriteContract } from "../hooks/scaffold-eth";
 import { useAccount } from "wagmi";
-import { useCofheConnected } from "~~/hooks/useCofhe";
+import { useCofheConnected } from "../hooks/useCofhe";
 import { notification } from "~~/utils/scaffold-eth";
 
 const C = {

@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FheTypes } from "cofhejs/web";
-import { useEncryptInput } from "~~/hooks/useEncryptInput";
-import { useDecryptValue } from "~~/hooks/useDecrypt";
-import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
+import { useEncryptInput } from "../hooks/useEncryptInput";
+import { useDecryptValue } from "../hooks/useDecrypt";
+import { useScaffoldReadContract, useScaffoldWriteContract } from "../hooks/scaffold-eth";
 import { useAccount } from "wagmi";
 import { parseEther, formatEther } from "viem";
-import { useCofheConnected } from "~~/hooks/useCofhe";
+import { useCofheConnected } from "../hooks/useCofhe";
 import { notification } from "~~/utils/scaffold-eth";
 
 // ─── Colors ───────────────────────────────────────────────────────────────────

@@ -4,10 +4,10 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { parseEther, formatEther } from "viem";
 import { useAccount } from "wagmi";
 import { FheTypes, Encryptable, cofhejs } from "cofhejs/web";
-import { useScaffoldWriteContract, useScaffoldReadContract } from "~~/hooks/scaffold-eth";
-import { useEncryptInput } from "~~/hooks/useEncryptInput";
-import { useDecryptValue } from "~~/hooks/useDecrypt";
-import { useCofheConnected } from "~~/hooks/useCofhe";
+import { useScaffoldWriteContract, useScaffoldReadContract } from "../hooks/scaffold-eth";
+import { useEncryptInput } from "../hooks/useEncryptInput";
+import { useDecryptValue } from "../hooks/useDecrypt";
+import { useCofheConnected } from "../hooks/useCofhe";
 import { notification } from "~~/utils/scaffold-eth";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
